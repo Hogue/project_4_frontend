@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script src="app/libraries/lodash.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="app/libraries/angular-google-maps.min.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/controllers/mapController.js"></script>
+ </head>
+ <body ng-app="mapApp">
+ <div id="map_canvas" ng-controller="mapController">
+    <script type="text/ng-template" id="searchbox.tpl.html">
+        <input type="text" placeholder="Search Box"></input>
+    </script>
+  <div ng-view></div>
+  <!-- <div ng-cloak>
+        <ul>
+            <li>coords update ctr: {{coordsUpdates}}</li>
+            <li>dynamic move ctr: {{dynamicMoveCtr}}</li>
+        </ul>
+    </div> -->
+
+ </body>
+</html>
