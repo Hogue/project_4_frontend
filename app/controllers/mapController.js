@@ -11,7 +11,7 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi) {
 
   var events = {
     places_changed: function (searchBox) {
-      var query = searchBox.getGMmarkers()[0];
+      var query = searchBox.getPlaces()[0];
       var bathroom = {};
       bathroom.latitude = query.geometry.location.k;
       bathroom.longitude = query.geometry.location.D;
