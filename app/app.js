@@ -6,7 +6,7 @@ var app = angular.module('mapApp', ['uiGmapgoogle-maps','ngRoute'])
   uiGmapGoogleMapApiProvider.configure({
     key: 'AIzaSyAbME82hk_QRyyPWR8-zG3nUlvEDvAK3C4',
     v: '3.17',
-    libraries: 'weather,geometry,visualization,places'
+    libraries: 'weather,geometry,visualization,places,drawing'
   });
 
   $routeProvider
