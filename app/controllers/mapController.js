@@ -1,6 +1,6 @@
 (function mapControllerIIFE() {
 
-var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi) {
+var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) {
 
   // Define variables for our Map object
   var areaLat      = 44.2126995,
@@ -19,9 +19,16 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi) {
       bathroom.latitude = query.geometry.location.k;
       $scope.count++;
       bathroom.id = $scope.count;
-      bathroom.title = location.formatted_address;
+      bathroom.title = query.formatted_address;
+      bathroom.place_id = query.place_id;
       $scope.bathrooms.push(bathroom);
-      // console.log(query);
+      console.log(query);
+      console.log(bathroom);
+      // Simple POST request example (passing data) :
+      $http.post('http://localhost:3000/bathrooms', bathroom).
+      success(function(data) {
+
+      });
     }
   }
 
