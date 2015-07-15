@@ -47,6 +47,7 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
 
         geocoder.geocode({'location': latlng }, function(results, status) {
           bathroom.title = results[1].formatted_address;
+          console.log(bathroom.title);
           bathroom.place_id = results[1].place_id;
           $scope.bathrooms.push(bathroom);
           console.log($scope.bathrooms);
@@ -103,6 +104,25 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
         };
 
         $scope.drawingManagerControl = {};
+
+        $http.get('http://localhost:3000/bathrooms').success(function(data) {
+            console.log(data);
+            $scope.bathrooms = data;
+          })
+
+      //   $scope.bathrooms.onClick = function() {
+      //   console.log("Clicked!", bathroom.show);
+      //   $scope.bathrooms.selected.show = false;
+      //   $scope.bathrooms.selected = bathroom;
+      //   $scope.bathrooms.selected.show = !$scope.selected.show;
+      //   bathroom.show = $scope.selected.show;
+      // };
+      //   $scope.bathrooms.onCloseClick = function() {
+      //   $scope.selected.show = false;
+      //   bathroom.show = false;
+      //   console.log("CloseClicked", bathroom);
+      //   $scope.$apply();
+      // };
 
         });
         }, function(error){

@@ -1,3 +1,22 @@
 .angular-google-map-container {
   height: 100vh; // Or whatever pixel value you require :)
 }
+
+input {
+  width: 250px;
+  height: 25px;
+  font-size: 18px;
+  margin: 10px 0px 0px 10px;
+
+}
+
+.actionBar {
+  background-image:url('http://i.imgur.com/qBs3csP.png');
+  background-repeat: repeat-x; ;
+  z-index: 100;
+  height: 100px;
+}
+
+.container {
+  position: relative;
+}
