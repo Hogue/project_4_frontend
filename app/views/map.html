@@ -2,11 +2,13 @@
   <ui-gmap-search-box options="searchbox.options" template="searchbox.template" events="searchbox.events" position="searchbox.position" ></ui-gmap-search-box>
   <ui-gmap-drawing-manager options="drawingManagerOptions" control="drawingManagerControl" events="events"></ui-gmap-drawing-manager>
   <ui-gmap-markers models="bathrooms" coords="'self'" icon="'icon'">
+  <ui-gmap-windows show="show">
+      <div ng-non-bindable>{{formattted_address}}</div>
+  </ui-gmap-windows>
   </ui-gmap-markers>
   <ui-gmap-markers models="currentLocation" coords="'self'"  icon="'icon'">
   </ui-gmap-markers>
 </ui-gmap-google-map>
-
 
 
 
