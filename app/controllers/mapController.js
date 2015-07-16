@@ -39,6 +39,7 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
         bathroom.latitude = marker.position.k;
 
         bathroom.id = Date.now();
+        // bathroon.icon = '{url: "//developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" }';
 
         var geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(bathroom.latitude, bathroom.longitude);
@@ -60,10 +61,11 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
       }
 
   };
-  $scope.bathroomIcon = "http://i.imgur.com/DnEEuJo.png";
+  $scope.bathroomIcon = {url: "http://i.imgur.com/DnEEuJo.png"}
   $scope.bathrooms = [];
 
   $scope.searchbox = {template:'searchbox.tpl.html', events:events, parentdiv: 'actionBar'};
+
   if(!$scope.searchbox.options) {
     $scope.searchbox.options = {};
   }
