@@ -6,7 +6,7 @@ input {
   width: 250px;
   height: 25px;
   font-size: 18px;
-  margin: 10px 0px 0px 10px;
+  margin: 20px 0px 0px 10px;
   z-index: 1000;
 
 }
@@ -25,4 +25,8 @@ input {
 
 #searchBar {
   z-index: 3000;
+}
+
+#actionBar {
+  float: right;
 }

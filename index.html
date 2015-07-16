@@ -14,7 +14,13 @@
   <script src="app/controllers/mapController.js"></script>
  </head>
  <body ng-app="mapApp">
- <div class="actionBar container" id="actionBar">
+ <div class="actionBar container">
+  <div class="row">
+    <img src="/images/toiletbanner.png">
+    <img src="/images/toileticonfornav.png">
+    <div id="actionBar"></div>
+  </div>
+  </div>
  </div>
  <div id="map_canvas" ng-controller="mapController"></div>
  <script type="text/ng-template" id="searchbox.tpl.html">
@@ -22,6 +28,5 @@
   </script>
   <div ng-view></div>
 
-  <script type="text/javascript">$(document).ready(function() { $("#searchBox").detach().appendTo("#actionBar"); })</script>
- </body>
+
 </html>
