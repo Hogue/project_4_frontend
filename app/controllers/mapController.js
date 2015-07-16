@@ -25,7 +25,11 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
     }
   };
 
-  $scope.count = 0;
+  $http.get('http://localhost:3000/bathrooms').success(function(data) {
+            console.log(data);
+            $scope.bathrooms = data;
+          });
+
 
   $scope.events = {
       'markercomplete': function(gObject, eventName, model, args) {
@@ -33,10 +37,9 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
         var bathroom = {};
         bathroom.longitude = marker.position.D;
         bathroom.latitude = marker.position.k;
-        $scope.count++;
-        bathroom.id = $scope.count;
-        // bathroom.title = query.formatted_address;
-        // bathroom.place_id = query.place_id;
+
+        bathroom.id = Date.now();
+
         var geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(bathroom.latitude, bathroom.longitude);
 
@@ -45,6 +48,8 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
           console.log(bathroom.title);
           bathroom.place_id = results[1].place_id;
           $scope.bathrooms.push(bathroom);
+
+          console.log($scope.bathrooms);
           $http.post('http://localhost:3000/bathrooms', bathroom).
             success(function(data) {
               console.log("success!");
@@ -58,7 +63,7 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
   $scope.bathroomIcon = "http://i.imgur.com/DnEEuJo.png";
   $scope.bathrooms = [];
 
-  $scope.searchbox = {template:'searchbox.tpl.html', events:events};
+  $scope.searchbox = {template:'searchbox.tpl.html', events:events, parentdiv: 'actionBar'};
   if(!$scope.searchbox.options) {
     $scope.searchbox.options = {};
   }
@@ -86,22 +91,6 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
         };
         $scope.options = { scrollwheel: false };
 
-        angular.element("#actionBar").append(angular.element("#searchBox").detach());
-
-        var searchBox = $("#searchBox");
-
-        var bar = $("#actionBar");
-
-        $.parseHTML(searchBox);
-
-        console.log(searchBox);
-        console.log(actionBar);
-
-
-        // $("#searchBox").detach().appendTo("#actionBar");
-        //   console.log('got passed tits');
-
-
         $scope.drawingManagerOptions = {
           drawingMode: null,
           drawingControl: true,
@@ -115,10 +104,10 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
 
         $scope.drawingManagerControl = {};
 
-        $http.get('http://localhost:3000/bathrooms').success(function(data) {
-            console.log(data);
-            $scope.bathrooms = data;
-          });
+        // $http.get('http://localhost:3000/bathrooms').success(function(data) {
+        //     console.log(data);
+        //     $scope.bathrooms = data;
+        //   });
 
 
       //   $scope.bathrooms.onClick = function() {
