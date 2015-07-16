@@ -7,16 +7,22 @@ input {
   height: 25px;
   font-size: 18px;
   margin: 10px 0px 0px 10px;
+  z-index: 1000;
 
 }
 
 .actionBar {
   background-image:url('http://i.imgur.com/qBs3csP.png');
-  background-repeat: repeat-x; ;
-  z-index: 100;
+/*  color: blue;
+*/background-repeat: repeat-x; ;
   height: 100px;
+
 }
 
 .container {
   position: relative;
+}
+
+#searchBar {
+  z-index: 3000;
 }

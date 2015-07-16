@@ -10,7 +10,7 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
   var events = {
     places_changed: function (searchBox) {
       var query = searchBox.getPlaces()[0];
-      $scope.searchbox.options.location = {lat: query.geometry.location.k, lng: query.geometry.location.D}
+      $scope.searchbox.options.location = {lat: query.geometry.location.k, lng: query.geometry.location.D};
       uiGmapGoogleMapApi.then(function(maps) {
         $scope.map     = {
           center: {
@@ -23,25 +23,20 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
 
         });
     }
-  }
+  };
 
   $scope.count = 0;
 
   $scope.events = {
       'markercomplete': function(gObject, eventName, model, args) {
         var marker = args[0];
-        console.log(marker);
-        console.log();
         var bathroom = {};
         bathroom.longitude = marker.position.D;
-        console.log(bathroom.longitude);
         bathroom.latitude = marker.position.k;
-        console.log(bathroom.latitude);
         $scope.count++;
         bathroom.id = $scope.count;
         // bathroom.title = query.formatted_address;
         // bathroom.place_id = query.place_id;
-        console.log(bathroom);
         var geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(bathroom.latitude, bathroom.longitude);
 
@@ -50,7 +45,6 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
           console.log(bathroom.title);
           bathroom.place_id = results[1].place_id;
           $scope.bathrooms.push(bathroom);
-          console.log($scope.bathrooms);
           $http.post('http://localhost:3000/bathrooms', bathroom).
             success(function(data) {
               console.log("success!");
@@ -61,13 +55,14 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
       }
 
   };
-
+  $scope.bathroomIcon = "http://i.imgur.com/DnEEuJo.png";
   $scope.bathrooms = [];
 
   $scope.searchbox = {template:'searchbox.tpl.html', events:events};
   if(!$scope.searchbox.options) {
     $scope.searchbox.options = {};
   }
+
   $scope.currentLocation = [];
 
   if (navigator.geolocation) {
@@ -78,9 +73,8 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
           id: 0,
           title: "current location"
         };
-        console.log(pos);
         // $scope.currentLocation.push(pos);
-        $scope.searchbox.options.location = {lat: position.coords.latitude, lng: position.coords.longitude}
+        $scope.searchbox.options.location = {lat: position.coords.latitude, lng: position.coords.longitude};
 
       uiGmapGoogleMapApi.then(function(maps) {
         $scope.map     = {
@@ -92,8 +86,24 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
         };
         $scope.options = { scrollwheel: false };
 
+        angular.element("#actionBar").append(angular.element("#searchBox").detach());
+
+        var searchBox = $("#searchBox");
+
+        var bar = $("#actionBar");
+
+        $.parseHTML(searchBox);
+
+        console.log(searchBox);
+        console.log(actionBar);
+
+
+        // $("#searchBox").detach().appendTo("#actionBar");
+        //   console.log('got passed tits');
+
+
         $scope.drawingManagerOptions = {
-          drawingMode: google.maps.drawing.OverlayType.MARKER,
+          drawingMode: null,
           drawingControl: true,
           drawingControlOptions: {
             position: google.maps.ControlPosition.Top_Center,
@@ -108,7 +118,8 @@ var MapController = function($scope, $log, $timeout, uiGmapGoogleMapApi, $http) 
         $http.get('http://localhost:3000/bathrooms').success(function(data) {
             console.log(data);
             $scope.bathrooms = data;
-          })
+          });
+
 
       //   $scope.bathrooms.onClick = function() {
       //   console.log("Clicked!", bathroom.show);
