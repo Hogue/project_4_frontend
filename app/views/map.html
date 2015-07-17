@@ -1,21 +1,41 @@
-<ui-gmap-google-map center="map.center" options="options" zoom="map.zoom" bounds="map.bounds">
-  <ui-gmap-search-box options="searchbox.options" template="searchbox.template" events="searchbox.events" parentdiv="searchbox.parentdiv"></ui-gmap-search-box>
-
-  <ui-gmap-drawing-manager options="drawingManagerOptions" control="drawingManagerControl" events="events"></ui-gmap-drawing-manager>
-
-  <ui-gmap-markers models="bathrooms" coords="'self'" icon="bathroomIcon" >
-  <ui-gmap-windows show="show">
-      <div ng-non-bindable>{{title}}</div>
-  </ui-gmap-windows>
+<!-- Map -->
+<ui-gmap-google-map
+    center="map.center"
+    options="options"
+    zoom="map.zoom"
+    bounds="map.bounds"
+    >
+<!-- Search Box -->
+  <ui-gmap-search-box
+    options="searchbox.options"
+    template="searchbox.template"
+    events="searchbox.events"
+    parentdiv="searchbox.parentdiv"
+    >
+  </ui-gmap-search-box>
+<!-- Drawing Manager -->
+  <ui-gmap-drawing-manager
+    options="drawingManagerOptions"
+    control="drawingManagerControl"
+    events="events"
+    >
+  </ui-gmap-drawing-manager>
+<!-- Markers & Windows -->
+  <ui-gmap-markers
+    models="bathrooms"
+    coords="'self'"
+    icon="bathroomIcon"
+    >
+    <ui-gmap-windows
+    show="show"
+    >
+    <div ng-non-bindable>{{title}}</div>
+    </ui-gmap-windows>
   </ui-gmap-markers>
 
 </ui-gmap-google-map>
 
-
-<!--
-bathrooms.options: {
-    icon:'//developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"'}; -->
-<!-- options="bathrooms.options" -->
+<!-- ******* Additional Features For Later Use (below) *********** -->
 
 <!-- <ui-gmap-markers models="currentLocation" coords="'self'"  icon="'icon'">
   </ui-gmap-markers> -->
