@@ -9,7 +9,7 @@ var MapController = function($scope, uiGmapGoogleMapApi, $http) {
   // Geolocation Model — holds users current location object
   $scope.currentLocation = [];
 
-  // Find Geolocation
+  // Set Geolocation
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
@@ -19,11 +19,12 @@ var MapController = function($scope, uiGmapGoogleMapApi, $http) {
         title: "current location"
         };
         // $scope.currentLocation.push(pos);
+        // Replace geolocation with searched location
         $scope.searchbox.options.location = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
-      // Map Load
+      // Set Map
       uiGmapGoogleMapApi.then(function(maps) {
         $scope.map = {
           center: {
@@ -47,7 +48,6 @@ var MapController = function($scope, uiGmapGoogleMapApi, $http) {
               ]
           }
         };
-
         $scope.drawingManagerControl = {};
       });
     }, function(error){
@@ -57,32 +57,33 @@ var MapController = function($scope, uiGmapGoogleMapApi, $http) {
     });
   }
 
-  // Get Request For Makers
+  // Get Request For Bathrooms
   $http.get('http://localhost:3000/bathrooms').success(function(data) {
     console.log(data);
     $scope.bathrooms = data;
   });
 
-  // model property for custom icon
+  // Model property for custom icon
   $scope.bathroomIcon = {
     url: "http://i.imgur.com/DnEEuJo.png"
   }
-  // bathrooms array to hold markers
+  // Bathrooms array to hold markers
   $scope.bathrooms = [];
 
   // Marker Generation
+  // save event handler to scope
   $scope.events = {
     'markercomplete': function(gObject, eventName, model, args) {
       var marker = args[0];
       var bathroom = {};
-
+      // rip lat & long out of the marker and add an id (required)
       bathroom.longitude = marker.position.D;
       bathroom.latitude = marker.position.k;
       bathroom.id = Date.now();
-
+      // invoking a new instance of geocoder
       var geocoder = new google.maps.Geocoder();
       var latlng = new google.maps.LatLng(bathroom.latitude, bathroom.longitude);
-
+      // adding callback to the geocoder method to translate the location on the map into a human-readable address
       geocoder.geocode({'location': latlng }, function(results, status) {
         bathroom.title = results[1].formatted_address;
         bathroom.place_id = results[1].place_id;
@@ -118,7 +119,6 @@ var MapController = function($scope, uiGmapGoogleMapApi, $http) {
       });
     }
   };
-
   // Properties of the searchbox model
   $scope.searchbox = {
     template:'searchbox.tpl.html',
